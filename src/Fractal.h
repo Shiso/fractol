@@ -23,7 +23,11 @@
 # define MANDEL_MINX -2.4
 # define MANDEL_MAXY 1.5
 # define MANDEL_MINY -1.5
-# define ITER 200
+# define JULIA_MAXX 1
+# define JULIA_MINX -1
+# define JULIA_MAXY 1.2
+# define JULIA_MINY -1.2
+# define ITER 255
 
 typedef struct	s_fract t_fract;
 typedef	struct	s_aff t_aff;
@@ -50,6 +54,9 @@ struct s_fract
 	double	zoom;
 	double	x;
 	double	y;
+	double	mousex;
+	double	mousey;
+	int		type;
 	short	inv;
 	int		color;
 	void	*fractalgo;

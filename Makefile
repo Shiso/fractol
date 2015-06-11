@@ -13,7 +13,7 @@
 DIRLIB	=	libft/
 LIBFT	=	libft/libft.a
 FLAGS	=	-Wall -Werror -Wextra
-NAME	=	Fractol
+NAME	=	fractol
 SRCS	=	src/main.c \
 			src/utils.c
 OBJS	=	$(SRCS:.c=.o)

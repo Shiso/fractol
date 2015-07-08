@@ -15,6 +15,12 @@ LIBFT	=	libft/libft.a
 FLAGS	=	-Wall -Werror -Wextra
 NAME	=	fractol
 SRCS	=	src/main.c \
+			src/mandelbrot.c \
+			src/julia.c \
+			src/burning_ship.c \
+			src/sniped.c \
+			src/color.c \
+			src/hooks.c \
 			src/utils.c
 OBJS	=	$(SRCS:.c=.o)
 MLX		=	-Llibft -lft -g -L/usr/X11/lib -lmlx -framework OpenGL -framework AppKit

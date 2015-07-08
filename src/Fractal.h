@@ -19,36 +19,39 @@
 # include <unistd.h>
 
 # define ABS(x) (x < 0) ? -x : x
-# define MANDEL_MAXX 2.4
-# define MANDEL_MINX -2.4
-# define MANDEL_MAXY 1.5
-# define MANDEL_MINY -1.5
-# define JULIA_MAXX 1
-# define JULIA_MINX -1
-# define JULIA_MAXY 1.2
-# define JULIA_MINY -1.2
+# define JMAX 1
+# define JMIX -1
+# define JMAY 1.2
+# define JMIY -1.2
 # define ITER 255
 
-typedef struct	s_fract t_fract;
-typedef	struct	s_aff t_aff;
-typedef	struct	s_light t_light;
-typedef	struct	s_cplx t_cplx;
+# define DR(i) ((double)fract->aff->sx / (double)fract->aff->sy) * (((i / 4) % fract->aff->sx) - fract->aff->sx / 2) / (0.5 * fract->zoom * fract->aff->sx) + fract->x
+# define DI(i) (((i / 4) / fract->aff->sx) - fract->aff->sy / 2) / (0.5 * fract->zoom * fract->aff->sy) + fract->y
 
-struct s_aff
+# define NEWWIN mlx_new_window(fract->aff->mlx, fract->aff->sx, fract->aff->sy, fract->aff->title)
+# define NEWIMG mlx_new_image(fract->aff->mlx, fract->aff->sx, fract->aff->sy)
+# define NEWDATA (char *)mlx_get_data_addr(fract->aff->img, &fract->aff->bpp, &fract->aff->size_l, &fract->aff->endian)
+
+typedef struct s_fract	t_fract;
+typedef	struct s_aff	t_aff;
+typedef	struct s_light	t_light;
+typedef	struct s_cplx	t_cplx;
+
+struct		s_aff
 {
 	void	*mlx;
 	void	*win;
 	void	*img;
 	char	*data;
-	int		size_x;
-	int		size_y;
+	int		sx;
+	int		sy;
 	int		bpp;
 	int		size_l;
 	int		endian;
 	char	*title;
 };
 
-struct s_fract
+struct		s_fract
 {
 	t_aff	*aff;
 	double	zoom;
@@ -62,19 +65,35 @@ struct s_fract
 	void	*fractalgo;
 };
 
-struct s_light
+struct		s_light
 {
 	int	r;
 	int	g;
 	int	b;
 };
 
-struct s_cplx
+struct		s_cplx
 {
 	double r;
 	double i;
 };
 
-void	ft_exit(char *s, int fd);
+void		ft_draw(t_fract *fract);
+
+t_light		mandel_point(t_fract *fract, t_cplx c, int i);
+t_light		julia_point(t_fract *fract, t_cplx c, int i);
+t_light		sniped_point(t_fract *fract, t_cplx c, int i);
+t_light		burning_ship_point(t_fract *fract, t_cplx c, int i);
+
+void		ft_exit(char *s, int fd);
+double		ft_abs(double x);
+
+int			buttonpress_hook(int button, int x, int y, t_fract *fract);
+int			motion_hook(int x, int y, t_fract *fract);
+int			expose_hook(t_fract *fract);
+int			key_hook(int keycode, t_fract *fract);
+
+t_light		get_color(t_fract *fract, int i);
+void		set_color(t_fract *fract, int i, t_light c);
 
 #endif

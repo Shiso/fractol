@@ -12,6 +12,13 @@
 
 #include "fractal.h"
 
+double	ft_abs(double x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}
+
 void	ft_exit(char *s, int fd)
 {
 	ft_putendl_fd(s, fd);
